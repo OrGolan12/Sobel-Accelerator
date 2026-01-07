@@ -20,6 +20,8 @@ If |G| exceeds the user-defined threshold, the output is set to 0xFF (Edge), oth
 
 ## Hardware Architecture
 
+<img width="1413" height="357" alt="image" src="https://github.com/user-attachments/assets/45831003-b64e-400e-abd1-141c2d446439" />
+
 The design follows a streaming pipeline architecture composed of the following stages:
 1. **Grayscale Stage**: Transformation of 24-bit RGB data to 8-bit grayscale.
 2. **Row Synchronization (Line Buffers)**: Utilization of internal dual-port FIFOs to store two full rows of the image, enabling a 3-row vertical window.
