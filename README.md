@@ -47,3 +47,70 @@ Sobel-Accelerator/
 ├── data/                   # Simulation Data (Input/Output)
 ├── images/                 # Asset Directory
 └── sim/                    # Simulation Build Directory
+```
+# Execution Guide
+
+* **Preparation**
+
+  * Ensure Python 3 is installed with the required libraries:
+
+    ```bash
+    pip install pillow numpy matplotlib
+    ```
+
+* **Generate Input Data**
+
+  * Convert the source image into a hexadecimal pixel stream:
+
+    ```bash
+    python3 python/jpg2hex.py
+    ```
+
+  * Source:
+
+    ```
+    images/cat_image.jpg
+    ```
+
+  * Result:
+
+    ```
+    data/input_image.hex
+    ```
+
+* **Compile Hardware Logic**
+
+  * Compile the SystemVerilog modules and testbench using Icarus Verilog:
+
+    ```bash
+    iverilog -g2012 -o sim/sim.vvp \
+        tb/tb_image_processor.sv \
+        rtl/image_processor.sv \
+        rtl/gray_converter.sv \
+        rtl/row_fifo_manager.sv \
+        rtl/line_buffer.sv \
+        rtl/pixel_matrix_3x3.sv \
+        rtl/sobel_kernel.sv
+    ```
+
+* **Run Simulation**
+
+  * Execute the compiled simulation object:
+
+    ```bash
+    vvp sim/sim.vvp
+    ```
+
+  * Result:
+
+    ```
+    data/output_image.txt
+    ```
+
+* **Visualize Results**
+
+  * Display the original image alongside the processed FPGA output:
+
+    ```bash
+    python3 python/show_results.py
+    ```
